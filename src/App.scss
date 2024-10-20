@@ -1,0 +1,282 @@
+$text-color: #9d9d9d;
+$border-color: #00000035;
+$button-disabled-color: #00000020;
+
+@font-face{
+	font-family:'Almoni';
+	font-weight:400; /*(regular)*/
+	font-style: normal;
+	src: url('./fonts/almoni-dl-aaa-400.eot');
+	src: url('./fonts/almoni-dl-aaa-400.eot?#iefix') format('embedded-opentype'),
+	url('./fonts/almoni-dl-aaa-400.ttf') format('truetype'),
+	url('./fonts/almoni-dl-aaa-400.woff') format('woff');
+}
+@font-face{
+	font-family:'almoni';
+	font-weight:700; /*(bold)*/
+	font-style: normal;
+	src: url('./fonts/almoni-dl-aaa-700.eot');
+	src: url('./fonts/almoni-dl-aaa-700.eot?#iefix') format('embedded-opentype'),
+	url('./fonts/almoni-dl-aaa-700.ttf') format('truetype'),
+	url('./fonts/almoni-dl-aaa-700.woff') format('woff');
+}
+
+@font-face {
+  font-family: open-sans;
+  src: url('./fonts/OpenSans-Regular.ttf');
+}
+
+/* datepicker popup dialog animation */
+
+@keyframes anvil {
+  0% {
+    transform: scale(1) translateY(0px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  1% {
+    transform: scale(0.96) translateY(10px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+    box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+  }
+}
+.popup-content {
+  -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+}
+
+.App {
+  text-align: center;
+  user-select: none;
+  color: #5e5e60;
+  font-family: almoni;
+}
+
+.Date-picker {
+	.icon-item {
+		border: 1px solid #fc7a00;
+		padding: 4px 8px;
+		display: flex;
+		background: none;
+		border-radius: 4px;
+		cursor: pointer;
+		svg path {
+			fill: #fc7a00;
+		}
+		span {
+			margin: 0 8px;
+		}
+	}
+	.dr-date {
+		border: none !important;
+		margin-top: 8px;
+		cursor: auto;
+	}
+  .dialog {
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+		-webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+    .window {
+      background: #fff;
+      box-shadow: 0px 0px 10px 3px #bfb3b3;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      .close {
+        display: flex;
+        justify-content: flex-end;
+        cursor: pointer;
+        img {
+          height: 20px;
+        }
+      }
+      .calendar-container {
+        display: flex;
+      }
+    }
+  }
+}
+
+.Calendar {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 20px 12px;
+  border-color: $button-disabled-color !important;
+  .title {
+    font: bold 19px Almoni;
+  }
+  .navigator {
+    display: flex;
+    align-items: flex-end;
+    button {
+      background: none;
+      border: 1px solid $border-color;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      width: 28px;
+      height: 28px;
+    }
+    button:disabled {
+      color: $button-disabled-color;
+      border-color: $button-disabled-color;
+			svg path {
+				fill: $button-disabled-color;
+			}
+    }
+    .dropdown {
+      flex: 1;
+      text-align: right;
+      margin: 0 20px;
+      cursor: pointer;
+      font-size: 15px;
+			color: $text-color;
+      .anchor {
+        border-bottom: 1px solid $border-color;
+        padding: 4px 8px;
+        display: flex;
+        align-items: center;
+        > div {
+          flex: 1;
+          align-items: center;
+          display: flex;
+        }
+      }
+      .options {
+        position: absolute;
+				z-index: 1;
+        padding: 0 8px;
+        box-sizing: border-box;
+        height: 292px;
+        overflow-y: scroll;
+        background: #fafafa;
+				box-shadow: 0px 2px 10px 1px #dbdbdb;
+				border-radius: 2px;
+				-webkit-animation: anvil 0.15s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+        .option {
+          height: 26.5px;
+        }
+      }
+			.overlay {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				cursor: auto;
+			}
+			svg {
+				width: 8px;
+				height: 8px;
+			}
+    }
+		.dropdown[opened=true] {
+			color: #717173;
+			.anchor {
+				box-shadow: 0px 2px 10px 1px #dbdbdb;
+				background: #fafafa;
+				border-radius: 2px;
+			}
+		}
+  }
+  .days {
+    width: 100%;
+    thead {
+      color: $text-color;
+      font-size: 14px;
+      margin: 12px auto;
+      th {
+        padding: 12px 0;
+      }
+    }
+    tbody {
+      .selected, button:hover {
+        background: rgba(38,134,125,255);
+        color: #fff;
+      }
+      button {
+        font-size: 12px;
+        font-family: open-sans;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        color: rgba(76,156,149,255);
+        background: rgb(216, 234, 234);
+        cursor: pointer;
+      }
+      button:disabled {
+        background: none;
+        color: $border-color;
+        cursor: auto;
+      }
+    }
+  }
+  svg {
+    path {
+      fill: #636365;
+    }
+  }
+}
+.hints {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  font-size: 12px;
+  margin-top: 12px;
+  .item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2px 0;
+    .badge {
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+    }
+    span {
+      padding: 0 12px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
